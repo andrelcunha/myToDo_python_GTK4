@@ -29,7 +29,12 @@ while not flag_quit:
         
         case "u":
             task_id = int(input("Enter task ID: "))
-            db_service.update_task(task_id, title)
+            task_title = input("Enter task Title: ")
+            value = input("Does the task is completed? ([Y]/n): ")
+            is_completed = (value != "n")
+        
+
+            db_service.update_task(task_id, task_title, is_completed)
         
         case "d":
             task_id = int(input("Enter task ID: "))

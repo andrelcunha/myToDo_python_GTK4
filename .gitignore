@@ -34,3 +34,5 @@ Pipfile.lock
 .tool-versions
 
 .git
+
+*.db
