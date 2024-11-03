@@ -8,6 +8,9 @@ class DbService:
         self.__cursor = self.__conn.cursor()
         self.__create_table_if_not_exists()
 
+    def __enter__(self):
+        return self
+
     def get_tasks(self):
         self.__cursor.execute("SELECT * FROM tasks")
         tasks_rows = self.__cursor.fetchall()
@@ -57,3 +60,6 @@ class DbService:
 
     def __map_rows_to_tasks(self, rows):
         return [self.__map_row_to_task(row) for row in rows]
+    
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.__conn.close()
