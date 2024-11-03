@@ -33,6 +33,7 @@ class DbService:
 
     def delete_task(self, task_id):
         self.__cursor.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
+        self.__conn.commit()
 
     def get_task(self, id):
         self.__cursor.execute("SELECT * FROM tasks WHERE id = ?", (id,))
