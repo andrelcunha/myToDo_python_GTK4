@@ -1,7 +1,5 @@
-
-
-
 from app.dbservice.dbservice import DbService
+
 
 def main():
     flag_quit = False
@@ -15,7 +13,6 @@ def main():
         print("q - Quit")
         choice = input("Enter your choice: ")
 
-
         match choice:
             case "l":
                 tasks = db_service.get_tasks()
@@ -23,30 +20,31 @@ def main():
                     print("No tasks found.")
                     continue
                 for task in tasks:
-                    print(f"Task {task.id}: {task.title}, completed: {task.completed}") 
-            
+                    print(f"Task {task.id}: {task.title}, "
+                          f"completed: {task.completed}")
+
             case "a":
                 title = input("Enter task title: ")
                 db_service.create_task(title)
-            
+
             case "u":
                 task_id = int(input("Enter task ID: "))
                 task_title = input("Enter task Title: ")
                 value = input("Does the task is completed? ([Y]/n): ")
                 is_completed = (value != "n")
-            
 
                 db_service.update_task(task_id, task_title, is_completed)
-            
+
             case "d":
                 task_id = int(input("Enter task ID: "))
                 db_service.delete_task(task_id)
-            
+
             case "q":
                 flag_quit = True
-            
+
             case _:
                 print("Invalid choice. Please try again.")
+
 
 if __name__ == "__main__":
     main()

@@ -7,7 +7,7 @@ src_path = os.path.join(current_dir, 'src')
 sys.path.append(src_path)
 
 # Import and run the main script
-from app.gui.main import main
+from app.gui.main import main  # noqa: E402
 
 if __name__ == "__main__":
     main()

@@ -1,10 +1,9 @@
 import sys
 import gi
-
+from gi.repository import Gtk, Adw
 from src.app.dbservice.dbservice import DbService
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw
 
 
 class MainWindow(Gtk.ApplicationWindow):
@@ -15,8 +14,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self._entry_title = self.create_entry_title()
         self.list_box = Gtk.ListBox()
 
-
-        #Main box
+        # Main box
         v_main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=24)
         self.set_child(v_main_box)
 
@@ -36,7 +34,7 @@ class MainWindow(Gtk.ApplicationWindow):
     @property
     def entry_title(self):
         return self._entry_title
-    
+
     @entry_title.setter
     def entry_title(self, entry):
         self._entry_title = entry
@@ -85,7 +83,7 @@ class MainWindow(Gtk.ApplicationWindow):
         button_add.set_sensitive(False)
         button_add.connect('clicked', self.on_button_add_clicked, self.entry_title)
         return button_add
-    
+
     def create_button_delete_task(self, task):
         del_button = Gtk.Button(label='Delete')
         del_button.props.hexpand = True
@@ -97,7 +95,7 @@ class MainWindow(Gtk.ApplicationWindow):
         tasks = self.__get_tasks_from_db()
         for task in tasks:
             self.add_task_to_list_box(task)
-    
+
     def add_task_to_list_box(self, task):
         row = Gtk.ListBoxRow()
         row.set_child(self.create_task_row(task))
@@ -158,9 +156,11 @@ class MyToDoApp(Adw.Application):
         self.win = MainWindow(application=app)
         self.win.present()
 
+
 def main():
     app = MyToDoApp(application_id="com.github.andrelcunha.myToDo_python_GTK4")
     app.run(sys.argv)
+
 
 if __name__ == "__main__":
     main()

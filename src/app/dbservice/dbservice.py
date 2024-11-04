@@ -1,6 +1,6 @@
 import sqlite3
-
 from app.model.task.task import Task
+
 
 class DbService:
     def __init__(self, db_file="tasks.db"):
@@ -18,7 +18,10 @@ class DbService:
 
     def create_task(self, title):
         task = Task(title)
-        self.__cursor.execute("INSERT INTO tasks (title, completed) VALUES (?, ?)", (task.title, task.completed))
+        self.__cursor.execute(
+            "INSERT INTO tasks (title, completed) VALUES (?, ?)",
+            (task.title, task.completed)
+        )
         self.__conn.commit()
         last_row = self.__cursor.lastrowid
         task.id = last_row
@@ -28,9 +31,12 @@ class DbService:
         task = self.get_task(task_id)
         if task is None:
             return
-        task.completed = is_completed == True
+        task.completed = is_completed
         task.title = title
-        self.__cursor.execute("UPDATE tasks SET title = ?, completed = ? WHERE id = ?", (task.title, task.completed, task.id))
+        self.__cursor.execute(
+            "UPDATE tasks SET title = ?, completed = ? WHERE id = ?",
+            (task.title, task.completed, task.id)
+        )
         self.__conn.commit()
         return task
 
@@ -60,6 +66,6 @@ class DbService:
 
     def __map_rows_to_tasks(self, rows):
         return [self.__map_row_to_task(row) for row in rows]
-    
+
     def __exit__(self, exc_type, exc_value, traceback):
         self.__conn.close()

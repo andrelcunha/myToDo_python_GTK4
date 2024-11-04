@@ -1,6 +1,6 @@
 import unittest
 from app.dbservice.dbservice import DbService
-from app.model.task.task import Task
+
 
 class TestDbService(unittest.TestCase):
     def setUp(self):
@@ -32,6 +32,7 @@ class TestDbService(unittest.TestCase):
 
     def tearDown(self):
         self.db_service._DbService__conn.close()
+
 
 if __name__ == "__main__":
     unittest.main()
