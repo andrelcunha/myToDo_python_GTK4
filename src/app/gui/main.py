@@ -12,33 +12,34 @@ class MainWindow(Gtk.ApplicationWindow):
         super().__init__(**kwargs, title="My ToDo")
 
         self.set_default_size(400, 380)
+        self._entry_title = self.create_entry_title()
+        self.list_box = Gtk.ListBox()
+
 
         #Main box
         v_main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=24)
         self.set_child(v_main_box)
 
         # form box
-        form_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=24)
+        form_box = self.create_form_box()
         v_main_box.append(form_box)
 
-        # add entry title
-        entry_title = Gtk.Entry()
-        entry_title.props.hexpand = True
-        entry_title.props.placeholder_text = "Add a new task"
-        form_box.append(entry_title)
-        
-        # add button
-        button_add = self.create_button_add_task(entry_title)
-
-        entry_title.connect('changed', self.on_entry_title_changed, button_add)
-        form_box.append(button_add)
+        # entry title
+        # self.entry_title = self.create_entry_title()
 
         # list box
-        self.list_box = Gtk.ListBox()
         self.list_box.props.show_separators = True
         self.list_box.props.selection_mode = Gtk.SelectionMode.NONE
         self.populate_list_box(self.list_box)
         v_main_box.append(self.list_box)
+
+    @property
+    def entry_title(self):
+        return self._entry_title
+    
+    @entry_title.setter
+    def entry_title(self, entry):
+        self._entry_title = entry
 
     # actions
     def on_entry_title_changed(self, entry, button):
@@ -61,14 +62,28 @@ class MainWindow(Gtk.ApplicationWindow):
         row = row_box.get_parent()
         self.list_box.remove(row)
 
-
     # widgets
-    def create_button_add_task(self, entry_title):
+    def create_form_box(self):
+        form_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=24)
+        # button add '+'
+        button_add = self.create_button_add_task()
+        form_box.append(self.entry_title)
+        form_box.append(button_add)
+        self.entry_title.connect('changed', self.on_entry_title_changed, button_add)
+        return form_box
+
+    def create_entry_title(self):
+        entry = Gtk.Entry()
+        entry.props.hexpand = True
+        entry.props.placeholder_text = "Add a new task"
+        return entry
+
+    def create_button_add_task(self):
         button_add = Gtk.Button(label='+')
         button_add.props.hexpand = True
         button_add.props.halign = Gtk.Align.END
         button_add.set_sensitive(False)
-        button_add.connect('clicked', self.on_button_add_clicked, entry_title)
+        button_add.connect('clicked', self.on_button_add_clicked, self.entry_title)
         return button_add
     
     def create_button_delete_task(self, task):
