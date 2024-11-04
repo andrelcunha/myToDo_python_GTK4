@@ -1,6 +1,6 @@
 # My TO-DO App
 
-A simple TO-DO application built with Python, GTK4, and Libadwaita.
+A simple TO-DO application built with Python, GTK4, and Libadwaita, with both CLI and GUI interfaces for managing tasks.
 
 ## Features
 
@@ -8,12 +8,13 @@ A simple TO-DO application built with Python, GTK4, and Libadwaita.
 - Mark tasks as completed.
 - Delete tasks effortlessly.
 - Clean, modern UI with custom CSS styling.
+- Persist tasks using SQLite for reliable storage.
 
 ## Installation
 
 ### Prerequisites
 
-- Python 3.8+
+- Python 3.8+ (Tested on Python 3.14.2)
 - Pipenv
 
 ### Setup
@@ -29,16 +30,36 @@ A simple TO-DO application built with Python, GTK4, and Libadwaita.
     pipenv shell
     ```
 ## Usage
-Run the application:
+
+### CLI
+
+Run the command-line interface:
    ```sh
-   python main.py
+   python run_console.py
    ```
-## Folder Structure
+### GUI
+Run the graphical interface:
+   ```sh
+   python run_gui.py
+   ```
+### Folder Structure
 .
 ├── src/                # Source code
-│   ├── task.py         # Task class
-│   ├── style.css       # Custom styles
-│   └── main.py         # Main application file
+│   ├── tests/          # Unit tests for DbService
+│   │   └── test_dbservice.py
+│   ├── app/
+│   │   ├── model/
+│   │   │   └── task/
+│   │   │       └── task.py
+│   │   ├── gui/
+│   │   │   ├── style.css
+│   │   │   └── main.py
+│   │   ├── dbservice/
+│   │   │   └── dbservice.py
+│   │   └── cli/
+│   │       └── main.py
+├── run_graphic.py      # Script to run the GUI
+├── run_console.py      # Script to run the CLI
 ├── README.md           # This file
 ├── Pipfile             # Pipenv setup file
 └── .gitignore          # Git ignore file
