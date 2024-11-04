@@ -43,6 +43,7 @@ Run the graphical interface:
    python run_gui.py
    ```
 ### Folder Structure
+   ```
 .
 ├── src/                # Source code
 │   ├── tests/          # Unit tests for DbService
@@ -63,6 +64,7 @@ Run the graphical interface:
 ├── README.md           # This file
 ├── Pipfile             # Pipenv setup file
 └── .gitignore          # Git ignore file
+   ```
 ## Contributing
 Feel free to fork this project and submit pull requests. Any contributions, suggestions, or improvements are welcome!
 ## License
