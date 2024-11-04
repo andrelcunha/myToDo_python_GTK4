@@ -1,3 +1,4 @@
+[![Python application](https://github.com/andrelcunha/myToDo_python_GTK4/actions/workflows/python-app.yml/badge.svg)](https://github.com/andrelcunha/myToDo_python_GTK4/actions/workflows/python-app.yml)
 # My TO-DO App
 
 A simple TO-DO application built with Python, GTK4, and Libadwaita, with both CLI and GUI interfaces for managing tasks.
